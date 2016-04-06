@@ -9,12 +9,34 @@ uses
   Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Mask, Vcl.ExtCtrls, Vcl.Samples.Spin;
 
 type
+  TInputPredprinim = record
+    INN, KodNalOrg, InayaPrich, Famil, Name, Otch, OGRNIP: string;
+    Date: TDate;
+    Prilozenie, Copy, Prichina: integer;
+  end;
+
+  TInputPredstav = record
+    INN, Famil, Name, Otch, Tele, Docum: string;
+  end;
+
+  TInputRabot = record
+    Famil, Name, Otch, Dolzn, Nomer, Kod: string;
+  end;
+
   TForm1 = class(TForm)
     Button1: TButton;
-    MaskEdit1: TMaskEdit;
+    GroupBox1: TGroupBox;
     Label1: TLabel;
-    MaskEdit2: TMaskEdit;
     Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    MaskEdit1: TMaskEdit;
+    MaskEdit2: TMaskEdit;
     RadioGroup1: TRadioGroup;
     RadioButton1: TRadioButton;
     RadioButton2: TRadioButton;
@@ -22,52 +44,44 @@ type
     RadioButton4: TRadioButton;
     Edit1: TEdit;
     MaskEdit3: TMaskEdit;
-    Label4: TLabel;
     DateTimePicker1: TDateTimePicker;
-    Label5: TLabel;
-    Label6: TLabel;
-    Edit3: TEdit;
-    Label7: TLabel;
-    Label8: TLabel;
-    Label9: TLabel;
-    Edit4: TEdit;
-    Edit5: TEdit;
-    Edit6: TEdit;
-    Label10: TLabel;
-    Label11: TLabel;
-    Label12: TLabel;
-    Label13: TLabel;
-    Label14: TLabel;
     Edit7: TEdit;
     Edit8: TEdit;
     Edit9: TEdit;
-    Label3: TLabel;
-    Label15: TLabel;
     SpinEdit1: TSpinEdit;
-    Label16: TLabel;
     SpinEdit2: TSpinEdit;
+    GroupBox2: TGroupBox;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     Label17: TLabel;
-    Edit2: TEdit;
     Label18: TLabel;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Edit6: TEdit;
+    Edit2: TEdit;
     MaskEdit4: TMaskEdit;
+    GroupBox3: TGroupBox;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
+    Label19: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
     Edit10: TEdit;
     Edit11: TEdit;
     Edit12: TEdit;
-    Label19: TLabel;
     Edit13: TEdit;
-    Label23: TLabel;
     Edit14: TEdit;
-    Label24: TLabel;
     Edit15: TEdit;
-    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RadioButton4Click(Sender: TObject);
     procedure RadioButton3Click(Sender: TObject);
     procedure RadioButton2Click(Sender: TObject);
     procedure RadioButton1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -83,7 +97,8 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure DocForm(InputPredprinim: TInputPredprinim;
+  InputPredstav: TInputPredstav; InputRabot: TInputRabot);
 var
   WordApp: WordApplication;
   Docs: Documents;
@@ -108,7 +123,7 @@ begin
     End;
     Selection.Font.Name := 'Arial';
     Selection.Font.Size := 9;
-    Selection.TypeText('ИНН  ' + MaskEdit1.Text + #9 + #9 + #9 + #9 + #9);
+    Selection.TypeText('ИНН  ' + InputPredprinim.INN + #9 + #9 + #9 + #9 + #9);
     Selection.Font.Size := 8;
     With Selection.ParagraphFormat do
     begin
@@ -150,7 +165,7 @@ begin
     Selection.TypeBackspace;
     Selection.Font.Bold := wdToggle;
     Selection.Font.Size := 8;
-    Selection.TypeText('код налогового органа ' + MaskEdit2.Text);
+    Selection.TypeText('код налогового органа ' + InputPredprinim.KodNalOrg);
 
     Selection.TypeParagraph;
     Selection.Font.Size := 10;
@@ -177,11 +192,11 @@ begin
     Selection.TypeText
       (' Налогового кодекса Российской Федерации снять с учета индив');
     Selection.TypeText('идуального предпринимателя в связи с ');
-    if RadioButton1.Checked then
+    if InputPredprinim.Prichina = 1 then
       Selection.TypeText('прекращением предпринимательской деятельности.');
-    if RadioButton2.Checked then
+    if InputPredprinim.Prichina = 2 then
       Selection.TypeText('переходом на иной способ налогообложения.');
-    if RadioButton3.Checked then
+    if InputPredprinim.Prichina = 3 then
     begin
       Selection.TypeText
         ('нарушением требований, установленных подпунктом 1 пункта 2 ');
@@ -194,22 +209,22 @@ begin
       Selection.Font.Superscript := wdToggle;
       Selection.TypeText('Налогового Кодекса Российской Федерации');
     end;
-    if RadioButton4.Checked then
-      Selection.TypeText(Edit1.Text);
+    if InputPredprinim.Prichina = 4 then
+      Selection.TypeText(InputPredprinim.InayaPrich);
     Selection.TypeParagraph;
     Selection.TypeText('Индивидуальный предприниматель:');
     Selection.TypeParagraph;
-    Selection.TypeText(Edit7.Text);
+    Selection.TypeText(InputPredprinim.Famil);
     Selection.TypeParagraph;
-    Selection.TypeText(Edit8.Text);
-    if Edit9.Text <> '' then
+    Selection.TypeText(InputPredprinim.Name);
+    if InputPredprinim.Otch <> '' then
     begin
       Selection.TypeParagraph;
-      Selection.TypeText(Edit9.Text);
+      Selection.TypeText(InputPredprinim.Otch);
     end;
     Selection.TypeParagraph;
     Selection.TypeText('ОГРНИП ');
-    Selection.TypeText(MaskEdit2.Text);
+    Selection.TypeText(InputPredprinim.OGRNIP);
     Selection.TypeParagraph;
     Selection.TypeParagraph;
     Selection.TypeText
@@ -217,14 +232,14 @@ begin
     Selection.TypeParagraph;
     Selection.TypeText
       ('на вмененный доход для отдельных видов деятельности                                                                '
-      + DateToStr(DateTimePicker1.Date));
+      + DateToStr(InputPredprinim.Date));
 
     Selection.TypeParagraph;
     Selection.TypeParagraph;
     Selection.TypeText('Приложение к заявлению составлено на ' +
-      IntToStr(SpinEdit1.Value) + ' страницах ');
+      IntToStr(InputPredprinim.Prilozenie) + ' страницах ');
     Selection.TypeText('с приложением копии документа на ' +
-      IntToStr(SpinEdit1.Value) + ' страницах');
+      IntToStr(InputPredprinim.Copy) + ' страницах');
 
     Selection.TypeParagraph;
     ActiveDocument.Tables.Add(Selection.Range, 1, 2, wdWord9TableBehavior,
@@ -242,23 +257,23 @@ begin
     Selection.Font.Bold := wdToggle;
     Selection.TypeText('Представитель');
     Selection.TypeParagraph;
-    Selection.TypeText(Edit4.Text);
+    Selection.TypeText(InputPredstav.Famil);
     Selection.TypeParagraph;
-    Selection.TypeText(Edit5.Text);
-    if Edit6.Text <> '' then
+    Selection.TypeText(InputPredstav.Name);
+    if InputPredstav.Otch <> '' then
     begin
       Selection.TypeParagraph;
-      Selection.TypeText(Edit6.Text);
+      Selection.TypeText(InputPredstav.Otch);
     end;
     Selection.TypeParagraph;
-    Selection.TypeText('ИНН представителя ' + MaskEdit4.Text);
+    Selection.TypeText('ИНН представителя ' + InputPredstav.INN);
     Selection.TypeParagraph;
     Selection.TypeText('Номер контактного телефона:');
     Selection.TypeParagraph;
-    Selection.TypeText(Edit2.Text);
+    Selection.TypeText(InputPredstav.Tele);
     Selection.TypeParagraph;
     Selection.TypeText('_________________________               ' +
-      DateToStr(DateTimePicker1.Date));
+      DateToStr(InputPredprinim.Date));
     Selection.TypeParagraph;
     With Selection.ParagraphFormat do
     begin
@@ -289,7 +304,7 @@ begin
     Selection.TypeParagraph;
     Selection.ParagraphFormat.Alignment := wdAlignParagraphJustify;
     Selection.Font.Size := 10;
-    Selection.TypeText(Edit3.Text);
+    Selection.TypeText(InputPredstav.Docum);
 
     Selection.MoveRight(EmptyParam, EmptyParam, EmptyParam);
     Selection.ParagraphFormat.Alignment := wdAlignParagraphCenter;
@@ -300,21 +315,26 @@ begin
     Selection.TypeText('Сведения о представления заявления');
     Selection.TypeParagraph;
     Selection.ParagraphFormat.Alignment := wdAlignParagraphLeft;
-    Selection.TypeText('Данное заявление представлено (код) '+Edit14.Text);
+    Selection.TypeText('Данное заявление представлено (код) ' + InputRabot.Kod);
     Selection.TypeParagraph;
-    Selection.TypeText('с приложением на '+inttostr(SpinEdit1.Value)+' страницах');
+    Selection.TypeText('с приложением на ' +
+      IntToStr(InputPredprinim.Prilozenie) + ' страницах');
     Selection.TypeParagraph;
-    Selection.TypeText('с приложением на копии документа на '+inttostr(SpinEdit2.Value)+' листах');
+    Selection.TypeText('с приложением на копии документа на ' +
+      IntToStr(InputPredprinim.Copy) + ' листах');
     Selection.TypeParagraph;
-    Selection.TypeText('дата представления документа  '+DateToStr(DateTimePicker1.Date));
+    Selection.TypeText('дата представления документа  ' +
+      DateToStr(InputPredprinim.Date));
     Selection.TypeParagraph;
-    Selection.TypeText('зарегистрировано за № '+Edit15.Text);
+    Selection.TypeText('зарегистрировано за № ' + InputRabot.Nomer);
     Selection.TypeParagraph;
     Selection.TypeParagraph;
-    if (Edit10.Text <> '') and (Edit11.Text <> '') and (Edit12.Text <> '') then
+    if (InputRabot.Famil <> '') and (InputRabot.Name <> '') and
+      (InputRabot.Otch <> '') then
     begin
-      Selection.TypeText(Edit10.Text + ', ' + Edit11.Text[1] + '.' + Edit12.Text
-        [1] + '.' + '                                _______________');
+      Selection.TypeText(InputRabot.Famil + ', ' + InputRabot.Name[1] + '.' +
+        InputRabot.Otch[1] + '.' +
+        '                                _______________');
     end;
     Selection.TypeParagraph;
     Selection.Font.Size := 6;
@@ -331,20 +351,62 @@ begin
       ('Снятие с учета в налоговом органе индивидуального предпринимателя в качестве налогоплательщика единого налога на вмененный доход для отдельных видов деятельности осуществил:');
     Selection.TypeParagraph;
     Selection.TypeParagraph;
-    if (Edit10.Text <> '') and (Edit11.Text <> '') and (Edit12.Text <> '') then
+    if (InputRabot.Famil <> '') and (InputRabot.Name <> '') and
+      (InputRabot.Otch <> '') then
     begin
-    Selection.TypeText
-      (edit13.text+'                        '+Edit10.Text + ', ' + Edit11.Text[1] + '.' + Edit12.Text[1] + '.' +'                                                                        _____________________');
+      Selection.TypeText(InputRabot.Dolzn + '                        ' +
+        InputRabot.Famil + ', ' + InputRabot.Name[1] + '.' + InputRabot.Otch[1]
+        + '.' + '                                                                        _____________________');
     end;
     Selection.TypeParagraph;
     Selection.ParagraphFormat.Alignment := wdAlignParagraphRight;
     Selection.Font.Size := 6;
-    Selection.TypeText
-      ('Подпись            ');
+    Selection.TypeText('Подпись            ');
     Selection.TypeParagraph;
     Selection.Font.Size := 10;
-    Selection.TypeText(DateToStr(DateTimePicker1.Date));
+    Selection.TypeText(DateToStr(InputPredprinim.Date));
   end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  InputPredprinim: TInputPredprinim;
+  InputPredstav: TInputPredstav;
+  InputRabot: TInputRabot;
+begin
+  InputPredprinim.INN := MaskEdit1.Text;
+  InputPredprinim.KodNalOrg := MaskEdit2.Text;
+  InputPredprinim.InayaPrich := (Edit1.Text);
+  InputPredprinim.Famil := Edit7.Text;
+  InputPredprinim.Name := Edit8.Text;
+  InputPredprinim.Otch := Edit9.Text;
+  InputPredprinim.OGRNIP := MaskEdit3.Text;
+  InputPredprinim.Date := DateTimePicker1.Date;
+  InputPredprinim.Prilozenie := SpinEdit1.Value;
+  InputPredprinim.Copy := SpinEdit2.Value;
+  if RadioButton1.Checked then
+    InputPredprinim.Prichina := 1;
+  if RadioButton1.Checked then
+    InputPredprinim.Prichina := 2;
+  if RadioButton1.Checked then
+    InputPredprinim.Prichina := 3;
+  if RadioButton1.Checked then
+    InputPredprinim.Prichina := 4;
+
+  InputPredstav.INN := MaskEdit4.Text;
+  InputPredstav.Famil := Edit4.Text;
+  InputPredstav.Name := Edit5.Text;
+  InputPredstav.Otch := Edit6.Text;
+  InputPredstav.Tele := Edit2.Text;
+  InputPredstav.Docum := Edit3.Text;
+
+  InputRabot.Famil := Edit10.Text;
+  InputRabot.Name := Edit11.Text;
+  InputRabot.Otch := Edit12.Text;
+  InputRabot.Dolzn := Edit13.Text;
+  InputRabot.Nomer := Edit15.Text;
+  InputRabot.Kod := Edit14.Text;
+  DocForm(InputPredprinim,InputPredstav,InputRabot);
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);

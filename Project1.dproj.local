@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.857,=F:\учеба\операционки\1 лаба\Word_TLB.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.452,F:\учеба\операционки\1 лаба\Unit1.dfm=C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.514,=C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.452,C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.pas=F:\учеба\операционки\1 лаба\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.452,C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.dfm=F:\учеба\операционки\1 лаба\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.195,=F:\учеба\операционки\1 лаба\VBIDE_TLB.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.514,=C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.857,=F:\учеба\операционки\1 лаба\Word_TLB.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.464,=F:\учеба\операционки\1 лаба\Office_TLB.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.452,F:\учеба\операционки\1 лаба\Unit1.pas=C:\Users\Dima\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.563,F:\учеба\операционки\1 лаба\Project1.dproj=C:\Users\Dima\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.563,C:\Users\Dima\Documents\RAD Studio\Projects\Project1.dproj=F:\учеба\операционки\1 лаба\Project1.dproj</Transaction>
   </Transactions>
 </BorlandProject>
